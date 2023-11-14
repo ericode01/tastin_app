@@ -1,0 +1,67 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
+  id: ID!
+  username: String!
+  profile_picture_url: String!
+  description: String
+  posts: [Post] @hasMany
+  post_comments: [PostComment] @hasMany
+  post_comment_replies: [PostCommentReply] @hasMany
+}
+
+type Post @model {
+  id: ID!
+  title: String!
+  description: String
+  post_type: PostType!
+  cover_image_url: String!
+  post_media: [PostMedia] @hasMany
+  user: User @belongsTo
+  post_comments: [PostComment] @hasMany
+  business: Business @belongsTo
+  post_comment_replies: [PostCommentReply] @hasMany
+}
+
+type PostMedia @model {
+  id: ID!
+  url: String!
+  media_type: MediaType!
+  post: Post @belongsTo
+}
+
+type PostComment @model {
+  id: ID!
+  content: String!
+  post: Post @belongsTo
+  user: User @belongsTo
+  post_comment_replies: [PostCommentReply] @hasMany
+}
+
+type PostCommentReply @model{
+  id: ID!
+  content: String!
+  post: Post @belongsTo
+  user: User @belongsTo
+  post_comment: PostComment @belongsTo
+  reply_to_user_id: ID!
+  reply_to_user_name: String!
+}
+
+type Business @model {
+  id: ID!
+  name: String!
+  posts: [Post] @hasMany
+}
+
+enum PostType {
+  VLOG
+  PLOG
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
