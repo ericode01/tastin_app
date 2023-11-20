@@ -22,14 +22,14 @@ const Comments = ({ post }) => {
         try {
             var tempPostCommentsFullInfo = []
             const postComments = await DataStore.query(PostComment, (pc) => pc.post.id.eq(post.id));
-            console.log('postComments retrieved successfully!', JSON.stringify(postComments, null, 2));
+            //console.log('postComments retrieved successfully!', JSON.stringify(postComments, null, 2));
 
             for (const postComment of postComments) {
                 const postCommentReplies = await DataStore.query(PostCommentReply, (pcr) => pcr.post_comment.id.eq(postComment.id));
                 tempPostCommentsFullInfo.push({ "postComment": postComment, "postCommentReplies": postCommentReplies, })
             }
 
-            console.log('tempPostCommentsFullInfo retrieved successfully!', JSON.stringify(tempPostCommentsFullInfo, null, 2));
+            //console.log('tempPostCommentsFullInfo retrieved successfully!', JSON.stringify(tempPostCommentsFullInfo, null, 2));
 
             return tempPostCommentsFullInfo
             //DataStore.delete(post[0]);

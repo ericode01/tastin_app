@@ -4,7 +4,7 @@ import { Tabs } from 'expo-router';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { UserProfilePosts} from '../..';
+import { UserProfilePosts, UserProfileLikedPosts} from '../..';
 
 function HomeScreen() {
     return (
@@ -81,7 +81,7 @@ const UserProfileMenu = ({userInfo}) => {
                 />
                 <Tab.Screen
                     name="LikedPosts"
-                    component={SettingsScreen}
+                    children={()=><UserProfileLikedPosts userInfo={userInfo}/>}
                     options={{
                         /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} /> */
                         tabBarIcon: ({ color }) => <MaterialCommunityIcons name="robot-happy" size={24} color={color} />,

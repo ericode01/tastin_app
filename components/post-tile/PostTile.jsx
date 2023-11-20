@@ -14,7 +14,7 @@ const PostTile = ({ post }) => {
       async function fetchUser() {
         try {
           const user = await post.user;
-          console.log('PostTile user retrieved successfully!', JSON.stringify(user, null, 2));
+          //console.log('PostTile user retrieved successfully!', JSON.stringify(user, null, 2));
           return user;
         } catch (error) {
           console.log('Error retrieving PostTile user', error);

@@ -4,7 +4,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import styles from "./videopost.style";
 import { Post, PostDetails, CommentInputBar } from '..';
 import { useRouter } from 'expo-router';
-import { PostMedia } from '../../src/models';
+import { PostMedia, UserPostLike } from '../../src/models';
 import { DataStore } from 'aws-amplify';
 import Animated, {
     useAnimatedGestureHandler,
@@ -15,10 +15,10 @@ import Animated, {
 } from "react-native-reanimated";
 
 
-const VideoPost = (props) => {
-    const [post, setPost] = useState(props.post);
-    const [user, setUser] = useState(props.user);
-    const [business, setBusiness] = useState(props.business);
+const VideoPost = ({postFullInfo}) => {
+    const [post, setPost] = useState(postFullInfo.post);
+    const [user, setUser] = useState(postFullInfo.user);
+    const [business, setBusiness] = useState(postFullInfo.business);
     const [postMedia, setPostMedia] = useState();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const VideoPost = (props) => {
         try {
           //const postMediaArr = await post.post_media.toArray();
           const postMediaArr = await DataStore.query(PostMedia, pm => pm.post.id.eq(post.id));
-          console.log('PostMedia retrieved successfully!', JSON.stringify(postMediaArr, null, 2));
+          //console.log('PostMedia retrieved successfully!', JSON.stringify(postMediaArr, null, 2));
           return postMediaArr[0];
         } catch (error) {
           console.log('Error retrieving PostMedia', error);
@@ -37,7 +37,46 @@ const VideoPost = (props) => {
         }
       }
 
-    console.log("videopost", user)
+      /* useEffect(() => {
+        fetchUserPostLikeFrom().then((value)=>{
+            setUserPostLikeFrom(value);
+            setUserPostLikeTo(value);
+        });
+    }, [])
+
+    async function fetchUserPostLikeFrom(){
+        try {
+          //const postMediaArr = await post.post_media.toArray();
+          const userPostLikeArr = await DataStore.query(UserPostLike, (upl) => upl.and(upl=>[
+            upl.post.id.eq(post.id),
+            upl.user.id.eq(user.id)
+          ]
+          ));
+          console.log('userPostLikeArr retrieved successfully!', JSON.stringify(userPostLikeArr, null, 2));
+          return userPostLikeArr.length>0;
+        } catch (error) {
+          console.log('Error retrieving userPostLikeArr', error);
+          return null;
+        }
+      }
+
+      useEffect(() => {
+        fetchUserPostLikeCount().then(setUserPostLikeCount);
+    }, [])
+
+    async function fetchUserPostLikeCount(){
+        try {
+          //const postMediaArr = await post.post_media.toArray();
+          const allUserPostLikeArr = await DataStore.query(UserPostLike, (upl) =>upl.post.id.eq(post.id));
+          console.log('allUserPostLikeArr retrieved successfully!', JSON.stringify(allUserPostLikeArr, null, 2));
+          return allUserPostLikeArr.length;
+        } catch (error) {
+          console.log('Error retrieving allUserPostLikeArr', error);
+          return null;
+        }
+      } */
+
+    //console.log("videopost", user)
 
     const { height } = useWindowDimensions();
     const y = useSharedValue(0);
@@ -103,13 +142,13 @@ const VideoPost = (props) => {
             if (event.translationY < 0) {
                 y.value = event.translationY;
             }
-            console.log("onActive");
+            //console.log("onActive");
         },
         onEnd: (event) => {
             /* console.log(event); */
             if (event.velocityY < -500) {
                 // unlock
-                console.log("unlock1");
+                //console.log("unlock1");
                 y.value = withTiming(-height, { easing: Easing.linear });
             } /* else if (event.velocityY > 500) {
                 // reset
@@ -117,11 +156,11 @@ const VideoPost = (props) => {
                 y.value = withTiming(height, { easing: Easing.linear });
             } */ else if (-y.value > height / 2) {
                 // unlock
-                console.log("unlock2");
+                //console.log("unlock2");
                 y.value = withTiming(-height, { easing: Easing.linear });
             } else {
                 // reset
-                console.log("reset2");
+                //console.log("reset2");
                 y.value = withTiming(0, { easing: Easing.linear });
             }
         },
@@ -227,7 +266,7 @@ const VideoPost = (props) => {
                                 },
                             ], */
                         }} >
-                        {postMedia && <Post post={post} user={user} business={business} postMedia={postMedia} setVideoPostYValue={setVideoPostYValue} />}
+                        {postMedia  && <Post postFullInfo={postFullInfo} postMedia={postMedia} setVideoPostYValue={setVideoPostYValue} />}
                     </Animated.View>
                 </PanGestureHandler>
 

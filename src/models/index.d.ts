@@ -26,6 +26,7 @@ type EagerUser = {
   readonly posts?: (Post | null)[] | null;
   readonly post_comments?: (PostComment | null)[] | null;
   readonly post_comment_replies?: (PostCommentReply | null)[] | null;
+  readonly user_post_likes?: (UserPostLike | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -42,6 +43,7 @@ type LazyUser = {
   readonly posts: AsyncCollection<Post>;
   readonly post_comments: AsyncCollection<PostComment>;
   readonly post_comment_replies: AsyncCollection<PostCommentReply>;
+  readonly user_post_likes: AsyncCollection<UserPostLike>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -67,6 +69,7 @@ type EagerPost = {
   readonly post_comments?: (PostComment | null)[] | null;
   readonly business?: Business | null;
   readonly post_comment_replies?: (PostCommentReply | null)[] | null;
+  readonly user_post_likes?: (UserPostLike | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly userPostsId?: string | null;
@@ -88,6 +91,7 @@ type LazyPost = {
   readonly post_comments: AsyncCollection<PostComment>;
   readonly business: AsyncItem<Business | undefined>;
   readonly post_comment_replies: AsyncCollection<PostCommentReply>;
+  readonly user_post_likes: AsyncCollection<UserPostLike>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly userPostsId?: string | null;
@@ -214,6 +218,40 @@ export declare type PostCommentReply = LazyLoading extends LazyLoadingDisabled ?
 
 export declare const PostCommentReply: (new (init: ModelInit<PostCommentReply>) => PostCommentReply) & {
   copyOf(source: PostCommentReply, mutator: (draft: MutableModel<PostCommentReply>) => MutableModel<PostCommentReply> | void): PostCommentReply;
+}
+
+type EagerUserPostLike = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserPostLike, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly post?: Post | null;
+  readonly user?: User | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly userUser_post_likesId?: string | null;
+  readonly postUser_post_likesId?: string | null;
+}
+
+type LazyUserPostLike = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserPostLike, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly post: AsyncItem<Post | undefined>;
+  readonly user: AsyncItem<User | undefined>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly userUser_post_likesId?: string | null;
+  readonly postUser_post_likesId?: string | null;
+}
+
+export declare type UserPostLike = LazyLoading extends LazyLoadingDisabled ? EagerUserPostLike : LazyUserPostLike
+
+export declare const UserPostLike: (new (init: ModelInit<UserPostLike>) => UserPostLike) & {
+  copyOf(source: UserPostLike, mutator: (draft: MutableModel<UserPostLike>) => MutableModel<UserPostLike> | void): UserPostLike;
 }
 
 type EagerBusiness = {

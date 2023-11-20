@@ -10,6 +10,7 @@ type User @model {
   posts: [Post] @hasMany
   post_comments: [PostComment] @hasMany
   post_comment_replies: [PostCommentReply] @hasMany
+  user_post_likes: [UserPostLike] @hasMany
 }
 
 type Post @model {
@@ -23,6 +24,7 @@ type Post @model {
   post_comments: [PostComment] @hasMany
   business: Business @belongsTo
   post_comment_replies: [PostCommentReply] @hasMany
+  user_post_likes: [UserPostLike] @hasMany
 }
 
 type PostMedia @model {
@@ -48,6 +50,12 @@ type PostCommentReply @model{
   post_comment: PostComment @belongsTo
   reply_to_user_id: ID!
   reply_to_user_name: String!
+}
+
+type UserPostLike @model{
+  id: ID!
+  post: Post @belongsTo
+  user: User @belongsTo
 }
 
 type Business @model {

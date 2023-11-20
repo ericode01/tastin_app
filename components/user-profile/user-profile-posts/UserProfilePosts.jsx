@@ -21,7 +21,7 @@ const UserProfilePosts = ({ userInfo }) => {
       console.log('Before Posts retrieve!!!!', JSON.stringify(user, null, 2)); */
       //const posts = await user.posts.toArray();
       const posts = await DataStore.query(Post, p => p.user.id.eq(userInfo.id));
-      console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
+      //console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
       return posts;
     } catch (error) {
       console.log('Error retrieving Posts', error);

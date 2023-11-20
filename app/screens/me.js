@@ -13,13 +13,13 @@ const Me = () => {
     const [currentUserInfo, setCurrentUserInfo] = useState();
     const currentLoggedInUser = useContext(CurrentLoggedInUserContext);
 
-    console.log('before alling fetch data');
+    //console.log('before alling fetch data');
 
     useEffect(() => {
-        console.log('calling fetch data');
+        //console.log('calling fetch data');
         fetchUser().then(setCurrentUserInfo);
         // DataStore.query(User, (u)=>u.id.eq("15e3ad8b-52d8-46b3-a857-cbff85070326")).then(setCurrentUserInfo);
-        console.log('after set state', JSON.stringify(currentUserInfo, null, 2));
+        //console.log('after set state', JSON.stringify(currentUserInfo, null, 2));
       }, []);
 
       /* useFocusEffect(
@@ -36,13 +36,13 @@ const Me = () => {
         }, []),
       ); */
 
-    console.log('after alling fetch data');
-    console.log('after after', JSON.stringify(currentUserInfo, null, 2));
+    /* console.log('after alling fetch data');
+    console.log('after after', JSON.stringify(currentUserInfo, null, 2)); */
 
     async function fetchUser(){
         try {
           const user = await DataStore.query(User, (u)=>u.id.eq(currentLoggedInUser.id));
-          console.log('User retrieved successfully!', JSON.stringify(user, null, 2));
+          //console.log('User retrieved successfully!', JSON.stringify(user, null, 2));
           return user[0];
         } catch (error) {
           console.log('Error retrieving user', error);

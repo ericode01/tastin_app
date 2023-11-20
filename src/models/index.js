@@ -12,7 +12,7 @@ const MediaType = {
   "VIDEO": "VIDEO"
 };
 
-const { User, Post, PostMedia, PostComment, PostCommentReply, Business } = initSchema(schema);
+const { User, Post, PostMedia, PostComment, PostCommentReply, UserPostLike, Business } = initSchema(schema);
 
 export {
   User,
@@ -20,6 +20,7 @@ export {
   PostMedia,
   PostComment,
   PostCommentReply,
+  UserPostLike,
   Business,
   PostType,
   MediaType

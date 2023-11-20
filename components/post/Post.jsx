@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableWithoutFeedback, TouchableOpacity, Image, useWindowDimensions } from 'react-native'
 import { Video, ResizeMode } from 'expo-av';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -20,17 +20,13 @@ import Animated, {
 import { useRouter } from 'expo-router';
 
 
-const Post = (props) => {
+const Post = ({ postFullInfo, postMedia, setVideoPostYValue }) => {
     // const {post} = props;
     const video = React.useRef(null);
     const [playStatus, setPlayStatus] = useState({});
 
-    const [post, setPost] = useState(props.post);
-    const [user, setUser] = useState(props.user);
-    const [business, setBusiness] = useState(props.business);
-    const [postMedia, setPostMedia] = useState(props.postMedia);
-
-    const [isliked, setIsLiked] = useState(false);
+    const [isliked, setIsLiked] = useState(postFullInfo.user_post_like);
+    const [userPostLikeCount, setUserPostLikeCount] = useState(postFullInfo.user_post_like_count);
 
     const y = useSharedValue(0);
     const x = useSharedValue(0);
@@ -47,19 +43,41 @@ const Post = (props) => {
         }
     }
 
+    useEffect(() => {
+        console.log('Post is_current!!', postFullInfo.post.title, JSON.stringify(postFullInfo.is_current, null, 2));
+
+        if(postFullInfo.is_current){
+            playVideo();
+        }
+        else{
+            pauseVideo();
+        }
+    }, [postFullInfo.is_current])
+
+
+    function playVideo() {
+        if (!playStatus.isPlaying) {
+            video.current.playAsync();
+        }
+    }
+
+    function pauseVideo() {
+        if (playStatus.isPlaying) {
+            video.current.pauseAsync();
+        }
+    }
+
     const onLikePress = () => {
+        postFullInfo.user_post_like_changed = !postFullInfo.user_post_like_changed;
         const likesToAdd = isliked ? -1 : 1;
-        setPost(
-            {
-                ...post,
-                likes: post.likes + likesToAdd,
-            }
-        );
+        postFullInfo.user_post_like_count += likesToAdd;
+        postFullInfo.user_post_like = !postFullInfo.user_post_like;
         setIsLiked(!isliked);
+        setUserPostLikeCount(postFullInfo.user_post_like_count);
     }
 
     const onShowMorePress = () => {
-        props.setVideoPostYValue(withTiming(-height, { easing: Easing.linear }));
+        setVideoPostYValue(withTiming(-height, { easing: Easing.linear }));
     }
 
     const animatedContainerStyle = useAnimatedStyle(() => ({
@@ -134,7 +152,12 @@ const Post = (props) => {
                         resizeMode={ResizeMode.COVER}
                         isLooping={true}
                         onPlaybackStatusUpdate={status => setPlayStatus(() => status)}
-                        onLoad={() => video.current.playAsync()}
+                        //onLoad={() => video.current.playAsync()}
+                        onLoad={() => {
+                            if(postFullInfo.is_current){
+                                video.current.playAsync()
+                            }
+                        }}
                         style={styles.video}
                         onError={(error) => console.log(error)}
                     />
@@ -143,28 +166,28 @@ const Post = (props) => {
                     <View style={styles.videoUiContainer}>
                         <View style={styles.videoUiRightContainer}>
                             <TouchableOpacity style={styles.iconContainer} onPress={onLikePress}>
-                                {/* <AntDesign name={'heart'} size={24} color={isliked ? 'red' : 'white'} /> */}
+                                <AntDesign name={'heart'} size={24} color={isliked ? 'red' : 'white'} />
                                 {/* <Heart height={25} width={25} color={'white'} fill={isliked? '#ff8c1a' : null}/> */}
-                                <Text style={styles.statsLabel}>{post.likes}</Text>
+                                <Text style={styles.statsLabel}>{userPostLikeCount}</Text>
                             </ TouchableOpacity>
                             <TouchableOpacity style={styles.iconContainer}>
                                 {/* <MaterialIcons name={'bookmark'} size={25} color={'white'} /> */}
                                 {/* <BookmarkEmpty height={25} width={25} color={'white'} /> */}
-                                <Text style={styles.statsLabel}>{post.bookmarks}</Text>
+                                <Text style={styles.statsLabel}>{postFullInfo.bookmarks}</Text>
                             </ TouchableOpacity>
                             <TouchableOpacity style={styles.iconContainer}>
                                 {/* <MaterialIcons name={'share'} size={25} color={'white'} /> */}
-                               {/*  <Telegram height={25} width={25} color={'white'} /> */}
-                                <Text style={styles.statsLabel}>{post.shares}</Text>
+                                {/*  <Telegram height={25} width={25} color={'white'} /> */}
+                                <Text style={styles.statsLabel}>{postFullInfo.shares}</Text>
                             </ TouchableOpacity>
                         </View>
 
                         <View style={styles.videoUiBottomContainer}>
                             <View style={styles.userInfoContainer}>
-                                <TouchableOpacity onPress={() => router.push({ pathname: 'pages/user_profile_page', params: { user_id: user.id}})}>
+                                <TouchableOpacity onPress={() => router.push({ pathname: 'pages/user_profile_page', params: { user_id: postFullInfo.user.id } })}>
                                     <View style={styles.userInfo}>
-                                        <Image style={styles.profilePicture} source={{ uri: user.profile_picture_url }} />
-                                        <Text style={styles.username}>{user.username}</Text>
+                                        <Image style={styles.profilePicture} source={{ uri: postFullInfo.user.profile_picture_url }} />
+                                        <Text style={styles.username}>{postFullInfo.user.username}</Text>
                                     </View>
                                 </ TouchableOpacity >
                                 <TouchableOpacity style={styles.followButtonContainer}>
@@ -172,11 +195,11 @@ const Post = (props) => {
                                 </ TouchableOpacity >
                             </View>
                             <View style={styles.restaurantInfoContainer}>
-                                <TouchableOpacity onPress={() => router.push({ pathname: 'pages/business_profile_page', params: { business_id: business.id}})}>
+                                <TouchableOpacity onPress={() => router.push({ pathname: 'pages/business_profile_page', params: { business_id: postFullInfo.business.id } })}>
                                     <View style={styles.restaurantContainer}>
                                         {/* <MaterialIcons name={'place'} size={25} color={'white'} /> */}
                                         {/* <PinAlt height={25} width={25} color={'white'}/> */}
-                                        <Text style={styles.restaurantName}>{business.name}</Text>
+                                        <Text style={styles.restaurantName}>{postFullInfo.business.name}</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.restaurantStarContainer}>
@@ -186,7 +209,7 @@ const Post = (props) => {
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={styles.description}>{trimString(post.description)} ...</Text>
+                            <Text style={styles.description}>{trimString(postFullInfo.post.description)} ...</Text>
                             <TouchableOpacity style={{ alignSelf: "flex-start" }} onPress={onShowMorePress}>
                                 <Text style={styles.description}>Show More</Text>
                             </TouchableOpacity>
