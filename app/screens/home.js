@@ -163,12 +163,22 @@ const Home = () => {
         //<SafeAreaView>
         // <GestureHandlerRootView>
         <>
-            <View>
+            <View style={{backgroundColor:"#FFEFE0"}}>
                 {postsFullInfo && currentLoggedInUser && <FlatList
                     data={postsFullInfo}
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
 
-                        if (item.post.post_type === "VLOG") {
+                        var post_type = "PLOG"
+                        if(index%2==0){
+                            post_type="VLOG";
+                        }
+                        else{
+                            post_type="PLOG";
+                        }
+
+
+                        // if (item.post.post_type === "VLOG") {
+                        if (post_type === "VLOG") {
                             return (
                                 <VideoPost
                                     postFullInfo={item}
@@ -176,7 +186,7 @@ const Home = () => {
                             );
                         }
                         else {
-                            return (<Plog post={item} />);
+                            return (<Plog postFullInfo={item} />);
                         }
                     }}
                     horizontal

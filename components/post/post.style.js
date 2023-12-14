@@ -33,16 +33,16 @@ const styles = StyleSheet.create({
         fontSize:16,
         //marginBottom: 5
         marginLeft: 5,
-        fontFamily: 'Nunito_Sans_bold',
+        ffontFamily: 'Montserrat-Regular',
     },
     description:{
         color:'#fff',
         fontSize:15,
-        fontFamily: 'Nunito_Sans_regular',
+        fontFamily: 'Montserrat-Regular',
     },
     videoUiBottomContainer: {
         marginHorizontal:15,
-        marginBottom: 5,
+        marginBottom: 10,
         alignItems:'flex-start',
     },
     restaurantContainer:{
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     },
     restaurantName:{
         color:'#fff',
-        fontFamily: 'Nunito_Sans_regular',
+        fontFamily: 'Montserrat-Regular',
         fontSize: 14,
-        marginLeft:2,
+        marginLeft:3,
     },
     userInfo:{
         flexDirection:'row',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     followButtonText:{
         color:'black',
-        fontFamily: 'Nunito_Sans_regular',
+        fontFamily: 'Montserrat-Regular',
         fontSize: 14,
     },
     restaurantInfoContainer:{
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end',
         height: 180,
         justifyContent:'space-between',
-        marginRight:5,
+        marginRight:15,
     },
     statsLabel: {
         color: '#fff',

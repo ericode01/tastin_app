@@ -34,14 +34,17 @@ const BusinessProfilePage = () => {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: "Business",
+          headerTitle: "",
           headerBackTitle: "Back",
           headerBackTitleVisible: true,
-          headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
+          //headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
+          headerStyle:{backgroundColor:"#FFEFE0"},
+          headerShadowVisible: false,
+          headerTintColor:"black"
         }}
         getId={(params) => String(Date.now())}
       />
-      <SafeAreaView style={{ flex:1, backgroundColor:"white" }}>
+      <SafeAreaView style={{ flex:1, backgroundColor:"#FFEFE0" }}>
           { profileBusiness && <BusinessProfile business={profileBusiness}/> }
         </ SafeAreaView>
     </>

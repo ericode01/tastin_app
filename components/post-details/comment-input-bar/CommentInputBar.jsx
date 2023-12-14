@@ -14,7 +14,7 @@ const CommentInputBar = () => {
                     //label="Description"
                     placeholder="Say something?"
                     floatOnFocus={true}
-                    multiline
+                    multiline={false}
                     // showCharCounter
                     numberOfLines={5}
                     /* bottomAccessory={
@@ -29,18 +29,19 @@ const CommentInputBar = () => {
                         flex: 1,
                         marginRight: 5,
                     }}
+                    style={{fontFamily: "Montserrat-Regular",}}
                 />
                 <Button
                     size={Button.sizes.xSmall}
                     round={true}
-                    backgroundColor={Colors.orange40}
+                    backgroundColor={"#FFEFE0"}
                     style={{ height: 30, width: 30 }}
                     /* iconSource={() => <Send height={20} width={20} color={"white"} />} */
                 />
                 <Button
                     size={Button.sizes.xSmall}
                     round={true}
-                    backgroundColor={Colors.orange40}
+                    backgroundColor={"#FFEFE0"}
                     style={{ height: 30, width: 30, marginLeft: 5}}
                     /* iconSource={() => <LightBulbOn height={20} width={20} color={"white"} />} */
                 />
@@ -51,7 +52,10 @@ const CommentInputBar = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical:5,
+        //backgroundColor:"#fff",
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        marginTop:10,
+        marginBottom:5,
         shadowColor: "white",
         //zIndex:1,
         alignItems: "center",
@@ -59,9 +63,14 @@ const styles = StyleSheet.create({
         bottom:0,
         left:0,
         right:0 */
+        alignSelf:"center",
+        //width:"95%"
+        marginHorizontal:15,
+        borderRadius: 10
     },
     inner: {
         paddingHorizontal: 15,
+        paddingVertical: 5,
         flexDirection: "row",
         //backgroundColor: "red",
     },
@@ -82,7 +91,7 @@ const styles = StyleSheet.create({
     withFrame: {
         borderWidth: 1,
         borderColor: Colors.$outlineDisabledHeavy,
-        padding: 4,
+        paddingLeft: 10,
         borderRadius: 20,
         height: 30,
         //backgroundColor: "red"

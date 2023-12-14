@@ -1,15 +1,23 @@
 import React from "react";
-import { Text, SafeAreaView, View, FlatList, Dimensions } from 'react-native';
+import {
+  Text,
+  SafeAreaView,
+  View,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { VideoPost } from "../../components";
-import { useLocalSearchParams, useGlobalSearchParams, Link } from 'expo-router';
-import { Post, UserPostLike } from '../../src/models';
-import { useEffect, useState } from 'react';
-import { DataStore } from 'aws-amplify';
-import { Stack } from 'expo-router';
-import { router } from 'expo-router';
+import { useLocalSearchParams, useGlobalSearchParams, Link } from "expo-router";
+import { Post, UserPostLike } from "../../src/models";
+import { useEffect, useState } from "react";
+import { DataStore } from "aws-amplify";
+import { Stack } from "expo-router";
+import { router } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useContext } from 'react';
-import { CurrentLoggedInUserContext } from '../../contexts/CurrentLoggedInUserContext';
+import { useContext } from "react";
+import { CurrentLoggedInUserContext } from "../../contexts/CurrentLoggedInUserContext";
+import { Button } from "react-native-ui-lib";
+import { ChevronLeft } from "lucide-react-native";
 
 const Vlog = () => {
   const [postFullInfo, setPostFullInfo] = useState();
@@ -17,7 +25,7 @@ const Vlog = () => {
   const params = useLocalSearchParams();
   const currentLoggedInUser = useContext(CurrentLoggedInUserContext);
 
-  console.log("Vlog", params)
+  console.log("Vlog", params);
 
   useEffect(() => {
     fetchPostFullInfo().then(setPostFullInfo);
@@ -27,31 +35,41 @@ const Vlog = () => {
     try {
       const posts = await DataStore.query(Post, (p) => p.id.eq(params.post_id));
       const post = posts[0];
-      console.log('Vlog post retrieved successfully!', JSON.stringify(post, null, 2));
+      console.log(
+        "Vlog post retrieved successfully!",
+        JSON.stringify(post, null, 2)
+      );
       const user = await post.user;
       const business = await post.business;
-      const allUserPostLikeArr = await DataStore.query(UserPostLike, (upl) => upl.post.id.eq(post.id));
-      const userPostLikeArr = await DataStore.query(UserPostLike, (upl) => upl.and(upl => [
-        upl.post.id.eq(post.id),
-        upl.user.id.eq(currentLoggedInUser.id)
-      ]
-      ));
+      const allUserPostLikeArr = await DataStore.query(UserPostLike, (upl) =>
+        upl.post.id.eq(post.id)
+      );
+      const userPostLikeArr = await DataStore.query(UserPostLike, (upl) =>
+        upl.and((upl) => [
+          upl.post.id.eq(post.id),
+          upl.user.id.eq(currentLoggedInUser.id),
+        ])
+      );
 
       const tempPostFullInfo = {
-        "post": post,
-        "user": user,
-        "business": business,
-        "user_post_like_count": allUserPostLikeArr.length,
-        "user_post_like": userPostLikeArr.length > 0,
-        "user_post_like_obj": userPostLikeArr.length > 0 ? userPostLikeArr[0] : null,
-        "user_post_like_changed": false,
-        "is_current": true,
+        post: post,
+        user: user,
+        business: business,
+        user_post_like_count: allUserPostLikeArr.length,
+        user_post_like: userPostLikeArr.length > 0,
+        user_post_like_obj:
+          userPostLikeArr.length > 0 ? userPostLikeArr[0] : null,
+        user_post_like_changed: false,
+        is_current: true,
       };
 
-      console.log('Vlog tempPostFullInfo retrieved successfully!', JSON.stringify(tempPostFullInfo, null, 2));
+      console.log(
+        "Vlog tempPostFullInfo retrieved successfully!",
+        JSON.stringify(tempPostFullInfo, null, 2)
+      );
       return tempPostFullInfo;
     } catch (error) {
-      console.log('Error retrieving Vlog tempPostFullInfo', error);
+      console.log("Error retrieving Vlog tempPostFullInfo", error);
       return null;
     }
   }
@@ -59,15 +77,17 @@ const Vlog = () => {
   function updateUserPostLike() {
     if (postFullInfo.user_post_like_changed && postFullInfo.user_post_like) {
       addUserPostLike(postFullInfo);
-    }
-    else if (postFullInfo.user_post_like_changed && !postFullInfo.user_post_like) {
+    } else if (
+      postFullInfo.user_post_like_changed &&
+      !postFullInfo.user_post_like
+    ) {
       deleteUserPostLike(postFullInfo);
     }
   }
 
   async function addUserPostLike(postFullInfoToUpdate) {
     try {
-      console.log(' addUserPostLike triggered');
+      console.log(" addUserPostLike triggered");
       const newUserPostLike = await DataStore.save(
         new UserPostLike({
           post: postFullInfoToUpdate.post,
@@ -75,46 +95,76 @@ const Vlog = () => {
         })
       );
     } catch (error) {
-      console.log('Error updateUserPostLike', error);
+      console.log("Error updateUserPostLike", error);
     }
   }
 
   async function deleteUserPostLike(postFullInfoToDelete) {
     try {
-      console.log(' deleteUserPostLike triggered');
-      await DataStore.delete(UserPostLike, upl => upl.id.eq(postFullInfoToDelete.user_post_like_obj.id));
+      console.log(" deleteUserPostLike triggered");
+      await DataStore.delete(UserPostLike, (upl) =>
+        upl.id.eq(postFullInfoToDelete.user_post_like_obj.id)
+      );
     } catch (error) {
-      console.log('Error deleteUserPostLike', error);
+      console.log("Error deleteUserPostLike", error);
     }
   }
 
   return (
-    <>
+    <View style={{ backgroundColor: "#FFEFE0" }}>
+      {/* <SafeAreaView style={{ flex:1, backgroundColor: "#F2CEAE" }}> */}
       <Stack.Screen
         options={{
           headerShown: true,
-          title: "Post",
+          title: "",
           /* headerBackTitle: "Back",
-          headerBackTitleVisible: true, */
+          headerBackTitleVisible: true,
+          headerTintColor:"black", */
+          /* headerStyle:{
+            backgroundColor:"white",
+          }, */
+          headerTransparent: true,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => {
+             <Button 
+             label={'Back'} 
+             size={Button.sizes.medium}
+             style={{
+              opacity:0.3,
+             }}
+             onPress={() => {
               router.back();
               updateUserPostLike();
-            }}>
-              <Text>Back</Text>
-            </TouchableOpacity>
+            }}
+            backgroundColor="white"
+            color="black"
+            iconSource={()=><ChevronLeft size={14} color={"black"} strokeWidth={2}/>}
+             />
           ),
         }}
         getId={(params) => String(Date.now())}
       />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-        {/* <TouchableOpacity onPress={() => { router.back() }}>
+
+      {/* <TouchableOpacity onPress={() => { router.back() }}>
           <Text> aaaaaaaaaa</Text>
         </TouchableOpacity> */}
-        {postFullInfo && <VideoPost postFullInfo={postFullInfo} />}
-      </ SafeAreaView>
-    </>
+
+      {postFullInfo && <VideoPost postFullInfo={postFullInfo} />}
+      {/* <View style={{ justifyContent: "flex-start", backgroundColor: "red", zIndex:1 }}>
+        <Button
+          title="aaaaaaaaaaaaaa"
+          style={{
+            height: 10,
+            width: 100,
+            position: "absolute",
+            top: 300,
+            left: 100,
+            backgroundColor: "red",
+          }}
+        />
+      </View> */}
+      {/*  </SafeAreaView> */}
+    </View>
   );
-}
+};
 
 export default Vlog;

@@ -29,7 +29,7 @@ const UserProfilePosts = ({ userInfo }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white", marginHorizontal: 2 }}>
+    <View style={{ flex: 1, backgroundColor: "#FFEFE0", paddingHorizontal: 15 }}>
       {userPosts && <MasonryList
         data={userPosts}
         keyExtractor={(item) => item.id}

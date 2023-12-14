@@ -13,7 +13,7 @@ const Create = () => {
     
     
       useEffect(() => {
-        fetchPostCommentReply();
+        fetchBusiness();
       }, []); 
 
       /* useEffect(() => {
@@ -68,12 +68,13 @@ const Create = () => {
         try {
           var business = await DataStore.save(
             new Business({
-              name: 'test business 1',
+              id: 'c1c4b1ed-55a1-44a6-822b-9e0733a8879f',
+              name: 'test business 5',
             })
           );
           console.log('Business saved successfully!', business);
 
-          business = await DataStore.save(
+          /* business = await DataStore.save(
             new Business({
               name: 'test business 2',
             })
@@ -92,7 +93,7 @@ const Create = () => {
               name: 'test business 4',
             })
           );
-          console.log('Business saved successfully!', business);
+          console.log('Business saved successfully!', business); */
 
 
         } catch (error) {

@@ -19,6 +19,7 @@ import BusinessInfoSection from "./business-profile/business-info-section/Busine
 import BusinessProfileMenu from "./business-profile/business-profile-menu/BusinessProfileMenu";
 import BusinessProfilePosts from "./business-profile/business-profile-posts/BusinessProfilePosts";
 import UserProfileLikedPosts from "./user-profile/user-profile-liked-posts/UserProfileLikedPosts";
+import BusinessCard from "./businss-card/BusinessCard"
 
 // home screen
 /* import Welcome from "./home/welcome/Welcome";
@@ -57,6 +58,7 @@ export {
   BusinessProfileMenu,
   BusinessProfilePosts,
   UserProfileLikedPosts,
+  BusinessCard,
 
   /* Welcome,
   Nearbyjobs,

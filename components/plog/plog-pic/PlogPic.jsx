@@ -1,92 +1,97 @@
 import React from "react";
-import { Text, SafeAreaView, View, FlatList, Dimensions, StyleSheet, Image } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import {
+  Text,
+  SafeAreaView,
+  View,
+  FlatList,
+  Dimensions,
+  StyleSheet,
+  Image,
+} from "react-native";
+import Carousel from "react-native-reanimated-carousel";
+import AnimatedDotsCarousel from "react-native-animated-dots-carousel";
 
+const PlogPic = ({ images, postFullInfo }) => {
+  const screenWidth = Dimensions.get("window").width;
+  const [index, setIndex] = React.useState(0);
+  const picRatioFactor = 4 / 3;
+  const carouselHeight = screenWidth * picRatioFactor;
 
+  const handleIndex = (index) => {
+    setIndex(index);
+  };
 
-const PlogPic = ({ images }) => {
-
-    const isCarousel = React.useRef(null)
-    const width = Dimensions.get('window').width;
-    const [index, setIndex] = React.useState(0)
-
-    return (
-        <View style={{ width: "100%", height: Dimensions.get('window').height * 0.55, flexDirection: "column" }}>
-            <View style={{ alignItems: "center" }}>
-                <Carousel
-                    layout="tinder"
-                    layoutCardOffset={3}
-                    ref={isCarousel}
-                    data={images}
-                    renderItem={({ item, index }) => (
-                        <View style={styles.container} key={index}>
-                            <Image
-                                source={{ uri: item.imgUrl }}
-                                style={styles.image}
-                            />
-                        </View>
-                    )}
-                    sliderWidth={width}
-                    itemWidth={width}
-                    onSnapToItem={(index) => setIndex(index)}
+  return (
+    <>
+      <View
+        style={{ flexDirection: "column", alignItems: "center", marginTop: 0 }}
+      >
+        <View style={{marginBottom:5}}>
+          <Carousel
+            loop={true}
+            width={screenWidth}
+            height={carouselHeight}
+            style={{ borderRadius: 0 }}
+            autoPlay={postFullInfo.is_current}
+            data={images}
+            scrollAnimationDuration={1000}
+            panGestureHandlerProps={{
+              activeOffsetX: [-10, 10],
+            }}
+            //onSnapToItem={(index) => console.log("current index:", index)}
+            onProgressChange={(_, absoluteProgress) => {
+              handleIndex(Math.round(absoluteProgress));
+            }}
+            renderItem={({ item, index }) => (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                  }}
+                  source={{ uri: item.imgUrl }}
                 />
-            </View>
-
-            <View style={{ alignContent:"center", alignItems: "center", transform:[{translateY:-25}]}}>
-                <Pagination
-                    dotsLength={images.length}
-                    activeDotIndex={index}
-                    carouselRef={isCarousel}
-                    dotStyle={{
-                        width: 5,
-                        height: 5,
-                        borderRadius: 5,
-                        marginHorizontal: -15,
-                        backgroundColor: 'rgba(0, 0, 0, 0.92)'
-                    }}
-                    inactiveDotOpacity={0.4}
-                    inactiveDotScale={0.6}
-                    tappableDots={true}
-                    animatedDuration={50}
-                />
-            </View>
+              </View>
+            )}
+          />
         </View>
-    );
-}
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        borderRadius: 8,
-        width: Dimensions.get('window').width,
-        //paddingBottom: 40,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
-        elevation: 7,
-    },
-    image: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height * 0.5,
-    },
-    header: {
-        color: "#222",
-        fontSize: 28,
-        fontWeight: "bold",
-        paddingLeft: 20,
-        paddingTop: 20
-    },
-    body: {
-        color: "#222",
-        fontSize: 18,
-        paddingLeft: 20,
-        paddingLeft: 20,
-        paddingRight: 20
-    }
-})
 
+        <AnimatedDotsCarousel
+          length={images.length}
+          currentIndex={index}
+          maxIndicators={5}
+          interpolateOpacityAndColor={false}
+          activeIndicatorConfig={{
+            color: "black",
+            margin: 3,
+            opacity: 0.9,
+            size: 6,
+          }}
+          inactiveIndicatorConfig={{
+            color: "black",
+            margin: 3,
+            opacity: 0.2,
+            size: 6,
+          }}
+          decreasingDots={[
+            {
+              config: { color: "black", margin: 3, opacity: 0.2, size: 5 },
+              quantity: 1,
+            },
+            {
+              config: { color: "black", margin: 3, opacity: 0.2, size: 4 },
+              quantity: 1,
+            },
+          ]}
+        />
+      </View>
+    </>
+  );
+};
 
 export default PlogPic;

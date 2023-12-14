@@ -61,6 +61,17 @@ type UserPostLike @model{
 type Business @model {
   id: ID!
   name: String!
+  website: String
+  rating: Float
+  long_description: String
+  address: String
+  review_keywords: AWSJSON
+  categories: AWSJSON
+  main_category: String
+  description: String
+  phone: String
+  other_id: String
+  other_rating: Float
   posts: [Post] @hasMany
 }
 

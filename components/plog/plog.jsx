@@ -1,34 +1,65 @@
-import React from "react";
-import { Text, SafeAreaView, View, FlatList, Dimensions, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  SafeAreaView,
+  View,
+  FlatList,
+  Dimensions,
+  KeyboardAvoidingView,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { PostDetailsDescription, PostDetailsComments, PostDetailsTopInfoBar, PlogPic, CommentInputBar } from "..";
+import {
+  PostDetailsDescription,
+  PostDetailsComments,
+  PostDetailsTopInfoBar,
+  PlogPic,
+  CommentInputBar,
+} from "..";
 
-const Plog = ({ post }) => {
-    return (
-        <SafeAreaView style={{ width: Dimensions.get("screen").width, height: "100%" }}>
-            <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{height: "100%"}}
-            >
-                <PostDetailsTopInfoBar />
+import posts from "../../data/posts";
 
-                <ScrollView>
-                    <PlogPic images={post.images} />
+const Plog = ({ postFullInfo }) => {
+  const [post, setPost] = useState(postFullInfo.post);
+  const [user, setUser] = useState(postFullInfo.user);
+  const [business, setBusiness] = useState(postFullInfo.business);
 
-                    <PostDetailsDescription />
-                    <PostDetailsComments />
-                </ScrollView>
+  return (
+    <SafeAreaView
+      style={{
+        width: Dimensions.get("screen").width,
+        height: "100%",
+        flex: 1,
+        backgroundColor: "#FFEFE0",
+      }}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ height: "100%" }}
+      >
+        <PostDetailsTopInfoBar user={user} />
 
-                <View style={{ height: 40, alignItems: "center" }}>
-                    <CommentInputBar />
-                </View>
+        <ScrollView>
+          <View style={{marginBottom:10}}>
+            <PlogPic images={posts[1].images} postFullInfo={postFullInfo} />
+          </View>
 
+          <PostDetailsDescription post={post} business={business} />
+          <View
+            style={{
+              marginTop: 10,
+            }}
+          >
+            <PostDetailsComments post={post} />
+          </View>
+        </ScrollView>
 
-            </KeyboardAvoidingView>
-        </SafeAreaView>
-
-    );
-}
+        <View style={{ height: 55 }}>
+          <CommentInputBar />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
 
 export default Plog;

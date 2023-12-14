@@ -34,14 +34,17 @@ const UserProfilePage = () => {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: "User",
+          title: "",
           headerBackTitle: "Back",
           headerBackTitleVisible: true,
-          headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
+          headerStyle:{backgroundColor:"#FFEFE0"},
+          headerShadowVisible: false,
+          //headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
+          headerTintColor:"black",
         }}
         getId={() => String(Date.now())}
       />
-      <SafeAreaView style={{ flex:1, backgroundColor:"white" }}>
+      <SafeAreaView style={{ flex:1, backgroundColor:"#FFEFE0" }}>
           { profileUser && <UserProfile userInfo={profileUser} /> }
         </ SafeAreaView>
     </>
