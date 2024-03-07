@@ -20,6 +20,7 @@ export default function Index() {
         'Montserrat-Medium': require('../assets/fonts/Montserrat/static/Montserrat-Medium.ttf'),
         'Montserrat-SemiBold': require('../assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf'),
         'Montserrat-Bold': require('../assets/fonts/Montserrat/static/Montserrat-Bold.ttf'),
+        'Montserrat-Black': require('../assets/fonts/Montserrat/static/Montserrat-Black.ttf'),
 
     });
 
@@ -28,5 +29,5 @@ export default function Index() {
         return null;
     }
 
-    return <Redirect href="/screens/home" />;
+    return <Redirect href="/screens/explore" />;
 }

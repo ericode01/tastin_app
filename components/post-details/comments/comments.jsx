@@ -59,7 +59,7 @@ const Comments = ({ post }) => {
         <View
           style={{
             //backgroundColor: "#fff", // Card background color
-            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
             borderRadius: 10, // Rounded corners for the card
             shadowColor: "#000",
             shadowOffset: {

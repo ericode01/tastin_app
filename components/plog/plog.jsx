@@ -30,7 +30,7 @@ const Plog = ({ postFullInfo }) => {
         width: Dimensions.get("screen").width,
         height: "100%",
         flex: 1,
-        backgroundColor: "#FFEFE0",
+        backgroundColor: "#FFFFF4",
       }}
     >
       <KeyboardAvoidingView

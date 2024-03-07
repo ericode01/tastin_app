@@ -22,7 +22,7 @@ const UserInfoSection = ({ userInfo }) => {
       style={{
         flexDirection: "column",
         justifyContent: "flex-start",
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
 
         //backgroundColor: "#fff", // Card background color
         borderRadius: 10, // Rounded corners for the card

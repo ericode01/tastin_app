@@ -26,7 +26,7 @@ const BusinessProfilePosts = ({business}) => {
       }
       
     return (
-        <View style={{ flex: 1, backgroundColor: "#FFEFE0", paddingHorizontal: 15 }}>
+        <View style={{ flex: 1, backgroundColor: "#FFFFF4", paddingHorizontal: 15 }}>
             <MasonryList
                 data={businessPosts}
                 keyExtractor={(item) => item.id}

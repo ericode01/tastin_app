@@ -38,7 +38,7 @@ const UserProfileLikedPosts = ({ userInfo }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FFEFE0", marginHorizontal: 2 }}>
+    <View style={{ flex: 1, backgroundColor: "#FFFFF4", marginHorizontal: 2 }}>
       {userLikedPosts && <MasonryList
         data={userLikedPosts}
         keyExtractor={(item) => item.id}

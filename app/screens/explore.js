@@ -1,4 +1,11 @@
-import { Text, SafeAreaView, View, FlatList, Dimensions } from "react-native";
+import {
+  Text,
+  SafeAreaView,
+  View,
+  Image,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { BusinessProfile } from "../../components";
 import React, { useState, useCallback, useEffect } from "react";
 import {
@@ -12,21 +19,33 @@ import {
 import axios from "axios";
 import { CurrentLoggedInUserContext } from "../../contexts/CurrentLoggedInUserContext";
 import { useContext } from "react";
-import { BusinessCard } from "../../components";
+import { BusinessCard, HomePage } from "../../components";
+import SwipeUpDown from "react-native-swipe-up-down";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import TalkingPeopleImage from "../../assets/talking_people.png";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Explore = () => {
   const [messages, setMessages] = useState([]);
   const currentLoggedInUser = useContext(CurrentLoggedInUserContext);
+  const [disableSwipeIcon, setDisableSwipeIcon] = useState(true);
+  const [chatPanelUp, setChatPanelUp] = useState(false);
+
+  const width = Dimensions.get("window").width;
+
+  const tabBarHeight = useBottomTabBarHeight();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     setMessages([
       {
         _id: 1,
-        text: "Hello! How can I help you?",
+        text: "Hello! I'm Tastin. What kind of restaurant are you looking for? And in which area? Just tell me any preferences you have.😀😀",
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: "Weat",
+          name: "Tastin",
           avatar:
             "https://img.freepik.com/free-photo/cartoon-character-with-yellow-jacket-sunglasses_71767-101.jpg?w=826&t=st=1701909629~exp=1701910229~hmac=9a0a2a1cc102cc79953fe2a6c1e94346f96e4c9956fe55a913c7991d560d0e0c",
         },
@@ -45,7 +64,8 @@ const Explore = () => {
       method: "post",
       url: "http://50.18.17.243/weatai/ask/",
       data: {
-        user_id: currentLoggedInUser.id,
+        //user_id: currentLoggedInUser.id,
+        user_id: 1,
         session_id: "aaa",
         user_prompt: userMessage,
       },
@@ -58,7 +78,7 @@ const Explore = () => {
           createdAt: new Date(),
           user: {
             _id: 2,
-            name: "Weat",
+            name: "Tastin",
             avatar:
               "https://img.freepik.com/free-photo/cartoon-character-with-yellow-jacket-sunglasses_71767-101.jpg?w=826&t=st=1701909629~exp=1701910229~hmac=9a0a2a1cc102cc79953fe2a6c1e94346f96e4c9956fe55a913c7991d560d0e0c",
           },
@@ -106,7 +126,7 @@ const Explore = () => {
       <InputToolbar
         {...props}
         containerStyle={{
-          backgroundColor: "#FFEFE0",
+          backgroundColor: "#F6FFF5",
           borderTopWidth: 0,
           paddingTop: 0,
           marginBottom: 0,
@@ -122,7 +142,7 @@ const Explore = () => {
           margin:0 */
         }}
         primaryStyle={{
-          backgroundColor: "#FFEFE0",
+          backgroundColor: "#F6FFF5",
         }}
       />
     );
@@ -134,13 +154,13 @@ const Explore = () => {
       textInputStyle={{
         color: "#222B45",
         // backgroundColor: '#EDF1F7',
-        backgroundColor: "white",
+        backgroundColor: "#F6FFF5",
         borderWidth: 1,
-        borderRadius: 50,
+        borderRadius: 10,
         borderColor: "#E4E9F2",
         marginLeft: 0,
         paddingHorizontal: 12,
-        fontFamily:"Montserrat-Regular",
+        fontFamily: "Montserrat-Regular",
         /* paddingTop: 0,
         paddingHorizontal: 12,
         
@@ -153,7 +173,9 @@ const Explore = () => {
   const renderCustomView = (props) => (
     <>
       {props.currentMessage.businessId && (
-        <View style={{ minHeight: 20, alignItems: "center" }}>
+        <View
+          style={{ minHeight: 20, alignItems: "center", width: width * 0.7 }}
+        >
           <BusinessCard businessId={props.currentMessage.businessId} />
         </View>
       )}
@@ -163,39 +185,120 @@ const Explore = () => {
   const renderMessageText = (props) => (
     <MessageText
       {...props}
-      customTextStyle={{ fontFamily:"Montserrat-Regular", }}
+      customTextStyle={{ fontFamily: "Montserrat-Regular" }}
     />
+  );
+
+  const renderSwipePanelMiniView = (props) => (
+    <>
+      {/* <Image
+        source={require("../../assets/food_pattern_3.png")}
+        style={{
+          width:windowWidth,
+          height:100, 
+          resizeMode: 'cover',
+          opacity:0.1,
+        }}
+      /> */}
+
+      <View
+        style={{
+          /* position: "absolute",
+          top: 10,
+          left: 100, */
+          justifyContent: "center",
+          alignItems: "center",
+          //marginTop: 10,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Montserrat-SemiBold",
+            fontSize: 16,
+            color: "white",
+            marginTop: -5,
+          }}
+        >
+          Swipe up to ask Tastin 🍝🌮🥗
+        </Text>
+      </View>
+
+      {/* <Text style={{fontFamily: "Montserrat-Regular"}}>Ask Tastins</Text> */}
+    </>
   );
 
   const renderAccessory = (props) => <Text>abc</Text>;
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#FFEFE0" }}>
-        <GiftedChat
-          messages={messages}
-          onSend={(messages) => onSend(messages)}
-          user={{
-            _id: currentLoggedInUser.id,
-            name: "User",
-            avatar:
-              "https://img.freepik.com/free-photo/cartoon-character-with-handbag-sunglasses_71767-99.jpg?w=826&t=st=1698805787~exp=1698806387~hmac=8aea0ab2f11c0ef6d5db704c87d892ceedaede9e8e27061162603731c3459ece",
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFF4" }}>
+        <ScrollView style={{ marginBottom: 42 }}>
+          <HomePage />
+        </ScrollView>
+        <SwipeUpDown
+          itemMini={renderSwipePanelMiniView}
+          disableSwipeIcon={false}
+          itemFull={(hide) => (
+            <GiftedChat
+              messages={messages}
+              onSend={(messages) => onSend(messages)}
+              user={{
+                //_id: currentLoggedInUser.id,
+                _id: 1,
+                name: "User",
+                avatar:
+                  "https://img.freepik.com/free-photo/cartoon-character-with-handbag-sunglasses_71767-99.jpg?w=826&t=st=1698805787~exp=1698806387~hmac=8aea0ab2f11c0ef6d5db704c87d892ceedaede9e8e27061162603731c3459ece",
+              }}
+              showUserAvatar={true}
+              showAvatarForEveryMessage={false}
+              alignTop={false}
+              multiline={false}
+              renderInputToolbar={(props) => customtInputToolbar(props)}
+              renderComposer={renderComposer}
+              scrollToBottom
+              renderAvatarOnTop
+              messagesContainerStyle={{
+                backgroundColor: chatPanelUp ? "#F6FFF5" : "#ff770f",
+                marginHorizontal: 5,
+              }}
+              renderCustomView={renderCustomView}
+              placeholder="Ask Tastin about restaurant, food..."
+              renderMessageText={renderMessageText}
+            />
+          )}
+          onShowMini={() => {
+            setDisableSwipeIcon(true);
+            setChatPanelUp(false);
           }}
-          showUserAvatar={true}
-          showAvatarForEveryMessage={false}
-          alignTop={false}
-          multiline={false}
-          renderInputToolbar={(props) => customtInputToolbar(props)}
-          renderComposer={renderComposer}
-          scrollToBottom
-          renderAvatarOnTop
-          messagesContainerStyle={{
-            backgroundColor: "#FFEFE0",
-            marginHorizontal: 5,
+          onShowFull={() => {
+            setDisableSwipeIcon(false);
+            setChatPanelUp(true);
           }}
-          renderCustomView={renderCustomView}
-          placeholder="Talk to Weat on restaurant, food..."
-          renderMessageText={renderMessageText}
+          animation="easeInEaseOut"
+          //disableSwipeIcon
+          extraMarginTop={50}
+          iconColor="lightgrey"
+          iconSize={30}
+          style={{
+            backgroundColor: chatPanelUp ? "#F6FFF5" : "#ff770f",
+            paddingBottom: tabBarHeight + insets.bottom,
+
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+
+            borderWidth: chatPanelUp ? 4 : 0,
+            borderColor: "rgba(0, 0, 0, 0.05)",
+
+            //shadowColor: "#000",
+            /* shadowOffset: {
+              width: 0,
+              height: 2,
+            }, */
+            //shadowOpacity: 0.15,
+            //shadowRadius: 2.62,
+            //elevation: 4, // Elevation for Android
+          }} // style for swipe
+          swipeHeight={tabBarHeight + 20}
         />
       </SafeAreaView>
     </>

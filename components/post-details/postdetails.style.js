@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         width: "100%",
         flex:1,
         //...StyleSheet.absoluteFill,
-        backgroundColor:'#FFEFE0',
+        backgroundColor:'#FFFFF4',
         //paddingTop:0
     },
 });

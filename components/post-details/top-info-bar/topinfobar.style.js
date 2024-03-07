@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         marginTop:0,
         marginBottom:10,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         
         //backgroundColor: '#fff', // Card background color
         borderRadius: 10, // Rounded corners for the card

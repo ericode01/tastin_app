@@ -25,7 +25,7 @@ function HomeScreen() {
 function SettingsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
+      <Text>Under development 🚀</Text>
     </View>
   );
 }
@@ -44,7 +44,7 @@ const UserProfileMenu = ({ userInfo }) => {
           tabBarStyle: {
             width: 280,
             justifyContent: "space-evenly",
-            backgroundColor: "#FFEFE0",
+            backgroundColor: "#FFFFF4",
             alignSelf: "center",
             marginTop: 0,
             zIndex: 0,

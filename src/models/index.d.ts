@@ -272,6 +272,11 @@ type EagerBusiness = {
   readonly phone?: string | null;
   readonly other_id?: string | null;
   readonly other_rating?: number | null;
+  readonly cuisine?: string | null;
+  readonly price_level?: number | null;
+  readonly opening_hours?: string | null;
+  readonly profile_pic?: string | null;
+  readonly profile_showcase_pics?: string | null;
   readonly posts?: (Post | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -295,6 +300,11 @@ type LazyBusiness = {
   readonly phone?: string | null;
   readonly other_id?: string | null;
   readonly other_rating?: number | null;
+  readonly cuisine?: string | null;
+  readonly price_level?: number | null;
+  readonly opening_hours?: string | null;
+  readonly profile_pic?: string | null;
+  readonly profile_showcase_pics?: string | null;
   readonly posts: AsyncCollection<Post>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

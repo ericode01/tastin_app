@@ -769,6 +769,41 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "cuisine": {
+                    "name": "cuisine",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "price_level": {
+                    "name": "price_level",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "opening_hours": {
+                    "name": "opening_hours",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "profile_pic": {
+                    "name": "profile_pic",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "profile_showcase_pics": {
+                    "name": "profile_showcase_pics",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "posts": {
                     "name": "posts",
                     "isArray": true,
@@ -830,5 +865,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "bea955360385f5c53d4bd16059499705"
+    "version": "739a617cecf18730231e37452a745993"
 };

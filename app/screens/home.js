@@ -163,22 +163,22 @@ const Home = () => {
         //<SafeAreaView>
         // <GestureHandlerRootView>
         <>
-            <View style={{backgroundColor:"#FFEFE0"}}>
+            <View style={{backgroundColor:"#FFFFF4"}}>
                 {postsFullInfo && currentLoggedInUser && <FlatList
                     data={postsFullInfo}
                     renderItem={({ item, index }) => {
 
-                        var post_type = "PLOG"
+                        /* var post_type = "PLOG"
                         if(index%2==0){
                             post_type="VLOG";
                         }
                         else{
                             post_type="PLOG";
-                        }
+                        } */
 
 
                         // if (item.post.post_type === "VLOG") {
-                        if (post_type === "VLOG") {
+                        if (item.post.post_type === "VLOG") {
                             return (
                                 <VideoPost
                                     postFullInfo={item}

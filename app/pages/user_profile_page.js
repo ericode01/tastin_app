@@ -37,14 +37,14 @@ const UserProfilePage = () => {
           title: "",
           headerBackTitle: "Back",
           headerBackTitleVisible: true,
-          headerStyle:{backgroundColor:"#FFEFE0"},
+          headerStyle:{backgroundColor:"#FFFFF4"},
           headerShadowVisible: false,
           //headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
           headerTintColor:"black",
         }}
         getId={() => String(Date.now())}
       />
-      <SafeAreaView style={{ flex:1, backgroundColor:"#FFEFE0" }}>
+      <SafeAreaView style={{ flex:1, backgroundColor:"#FFFFF4" }}>
           { profileUser && <UserProfile userInfo={profileUser} /> }
         </ SafeAreaView>
     </>

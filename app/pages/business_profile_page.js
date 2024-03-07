@@ -38,13 +38,13 @@ const BusinessProfilePage = () => {
           headerBackTitle: "Back",
           headerBackTitleVisible: true,
           //headerRight: () => (<TouchableOpacity onPress={ ()=> {console.log(1)} }></TouchableOpacity>),
-          headerStyle:{backgroundColor:"#FFEFE0"},
+          headerStyle:{backgroundColor:"#FFFFF4"},
           headerShadowVisible: false,
           headerTintColor:"black"
         }}
         getId={(params) => String(Date.now())}
       />
-      <SafeAreaView style={{ flex:1, backgroundColor:"#FFEFE0" }}>
+      <SafeAreaView style={{ flex:1, backgroundColor:"#FFFFF4" }}>
           { profileBusiness && <BusinessProfile business={profileBusiness}/> }
         </ SafeAreaView>
     </>

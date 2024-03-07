@@ -72,6 +72,11 @@ type Business @model {
   phone: String
   other_id: String
   other_rating: Float
+  cuisine: String
+  price_level: Float
+  opening_hours: AWSJSON
+  profile_pic: String
+  profile_showcase_pics: AWSJSON
   posts: [Post] @hasMany
 }
 

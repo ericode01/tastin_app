@@ -21,9 +21,9 @@ export default () => {
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="explore"
         options={{
-          /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} /> */
+          /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} />, */
           tabBarIcon: ({ color }) => (
             <AntDesign
               name="home"
@@ -32,17 +32,17 @@ export default () => {
               stroke-width={1.5}
             />
           ),
-          /* ({ color }) => <Home height={24} width={24} color={color} />, */
+          /* ({ color }) => <BubbleSearch height={24} width={24} color={color} />, */
           tabBarLabel: "Home",
           tabBarLabelStyle:{
-            fontFamily:"Montserrat-Regular"
+            fontFamily:"Montserrat-SemiBold"
           }
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="home"
         options={{
-          /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} />, */
+          /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} /> */
           tabBarIcon: ({ color }) => (
             <Rocket
               size={24}
@@ -50,10 +50,10 @@ export default () => {
               strokeWidth={1.5}
             />
           ),
-          /* ({ color }) => <BubbleSearch height={24} width={24} color={color} />, */
+          /* ({ color }) => <Home height={24} width={24} color={color} />, */
           tabBarLabel: "Explore",
           tabBarLabelStyle:{
-            fontFamily:"Montserrat-Regular"
+            fontFamily:"Montserrat-SemiBold"
           }
         }}
       />
@@ -69,7 +69,7 @@ export default () => {
           ),
           tabBarLabel: "Create",
           tabBarLabelStyle:{
-            fontFamily:"Montserrat-Regular"
+            fontFamily:"Montserrat-SemiBold"
           }
           /* ({color})=><MaterialCommunityIcons name="robot-happy" size={24} color={color} />, */
           /* ({ color }) => <Plus height={40} width={40} color={color} />, */
@@ -88,7 +88,7 @@ export default () => {
           ),
           tabBarLabel: "Hangout",
           tabBarLabelStyle:{
-            fontFamily:"Montserrat-Regular"
+            fontFamily:"Montserrat-SemiBold"
           }
           /* ({ color }) => <EmojiSatisfied height={24} width={24} color={color} />, */
         }}
@@ -106,7 +106,7 @@ export default () => {
           ),
           tabBarLabel: "Me",
           tabBarLabelStyle:{
-            fontFamily:"Montserrat-Regular"
+            fontFamily:"Montserrat-SemiBold"
           }
           /* ({ color }) => <User height={24} width={24} color={color} />, */
         }}

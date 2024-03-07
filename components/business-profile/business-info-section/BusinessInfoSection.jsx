@@ -27,13 +27,22 @@ import {
 import posts from "../../../data/posts";
 
 const BusinessInfoSection = ({ business }) => {
+  function getPriceLevelInDollarSigns(priceLevel) {
+    var result = "";
+    for (let i = 0; i < priceLevel; i++) {
+      result += "$";
+    }
+
+    return result;
+  }
+
   return (
     <View
       style={{
         flexDirection: "column",
         justifyContent: "flex-start",
         //marginHorizontal: 10,
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
 
         //backgroundColor: '#fff', // Card background color
         borderRadius: 10, // Rounded corners for the card
@@ -65,9 +74,11 @@ const BusinessInfoSection = ({ business }) => {
               height: 40,
               borderRadius: 40,
               borderWidth: 0,
+              objectFit:"contain"
             }}
             source={{
-              uri: "https://img.freepik.com/free-photo/flat-lay-batch-cooking-composition_23-2148765597.jpg?w=2000&t=st=1691543833~exp=1691544433~hmac=14e1c8ed9899ccf1f84b97c1bea9c3d6b78034cafaee59c69ae90c7dcbd92ca2",
+              //uri: "https://img.freepik.com/free-photo/flat-lay-batch-cooking-composition_23-2148765597.jpg?w=2000&t=st=1691543833~exp=1691544433~hmac=14e1c8ed9899ccf1f84b97c1bea9c3d6b78034cafaee59c69ae90c7dcbd92ca2",
+              uri: business.profile_pic,
             }}
           />
         </View>
@@ -101,9 +112,21 @@ const BusinessInfoSection = ({ business }) => {
             >
               Open
             </Text>
-            <TouchableOpacity style={{flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Route size={12} color={"black"} strokeWidth={2} />
-              <Text style={{ fontSize: 12, fontFamily: "Montserrat-Regular", marginLeft:1}}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: "Montserrat-Regular",
+                  marginLeft: 1,
+                }}
+              >
                 1.2 miles
               </Text>
             </TouchableOpacity>
@@ -127,10 +150,11 @@ const BusinessInfoSection = ({ business }) => {
         <Carousel
           loop
           width={Dimensions.get("window").width * 0.9}
-          height={Dimensions.get("window").width * 0.5}
+          height={Dimensions.get("window").width * 0.675}
           style={{ borderRadius: 10 }}
           autoPlay={true}
-          data={posts[1].images}
+          //data={posts[1].images}
+          data={business.profile_showcase_pics}
           scrollAnimationDuration={1000}
           //onSnapToItem={(index) => console.log("current index:", index)}
           renderItem={({ item, index }) => (
@@ -145,7 +169,7 @@ const BusinessInfoSection = ({ business }) => {
                   flex: 1,
                   justifyContent: "center",
                 }}
-                source={{ uri: item.imgUrl }}
+                source={{ uri: item }}
                 //style={styles.image}
               />
             </View>
@@ -164,7 +188,7 @@ const BusinessInfoSection = ({ business }) => {
         }}
       >
         <Text style={{ fontSize: 12, fontFamily: "Montserrat-Regular" }}>
-          New American
+          {business.cuisine}
         </Text>
         <View
           style={{
@@ -175,7 +199,7 @@ const BusinessInfoSection = ({ business }) => {
           }}
         />
         <Text style={{ fontSize: 12, fontFamily: "Montserrat-Regular" }}>
-          $$$
+          {getPriceLevelInDollarSigns(business.price_level)}
         </Text>
         <View
           style={{
@@ -194,7 +218,7 @@ const BusinessInfoSection = ({ business }) => {
               fontFamily: "Montserrat-Regular",
             }}
           >
-            4.2
+            {business.rating}
           </Text>
         </View>
         <View
@@ -216,7 +240,7 @@ const BusinessInfoSection = ({ business }) => {
               fontFamily: "Montserrat-Regular",
             }}
           >
-            5:30AM-9PM today
+            {business.opening_hours!=null ? business.opening_hours[4].times : "11 AM-9 PM"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -232,7 +256,7 @@ const BusinessInfoSection = ({ business }) => {
       >
         <MapPin size={12} color={"black"} strokeWidth={2} />
         <Text style={{ fontSize: 12, fontFamily: "Montserrat-Regular" }}>
-          3500 W 8th St, Los Angeles, CA 90005
+          {business.address}
         </Text>
       </TouchableOpacity>
 

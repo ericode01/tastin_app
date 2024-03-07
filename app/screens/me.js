@@ -51,7 +51,7 @@ const Me = () => {
       }
 
     return (
-        <SafeAreaView style={{ flex:1, backgroundColor:"#FFEFE0" }}>
+        <SafeAreaView style={{ flex:1, backgroundColor:"#FFFFF4" }}>
           { currentUserInfo && <UserProfile userInfo={currentUserInfo} /> }
         </ SafeAreaView>
     );

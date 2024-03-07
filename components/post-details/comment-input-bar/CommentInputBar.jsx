@@ -34,14 +34,14 @@ const CommentInputBar = () => {
                 <Button
                     size={Button.sizes.xSmall}
                     round={true}
-                    backgroundColor={"#FFEFE0"}
+                    backgroundColor={"#FFFFF4"}
                     style={{ height: 30, width: 30 }}
                     /* iconSource={() => <Send height={20} width={20} color={"white"} />} */
                 />
                 <Button
                     size={Button.sizes.xSmall}
                     round={true}
-                    backgroundColor={"#FFEFE0"}
+                    backgroundColor={"#FFFFF4"}
                     style={{ height: 30, width: 30, marginLeft: 5}}
                     /* iconSource={() => <LightBulbOn height={20} width={20} color={"white"} />} */
                 />
@@ -53,7 +53,7 @@ const CommentInputBar = () => {
 const styles = StyleSheet.create({
     container: {
         //backgroundColor:"#fff",
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         marginTop:10,
         marginBottom:5,
         shadowColor: "white",

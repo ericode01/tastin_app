@@ -111,7 +111,7 @@ const Vlog = () => {
   }
 
   return (
-    <View style={{ backgroundColor: "#FFEFE0" }}>
+    <View style={{ backgroundColor: "#FFFFF4" }}>
       {/* <SafeAreaView style={{ flex:1, backgroundColor: "#F2CEAE" }}> */}
       <Stack.Screen
         options={{
