@@ -62,7 +62,7 @@ const Explore = () => {
 
     axios({
       method: "post",
-      url: "http://50.18.17.243/weatai/ask/",
+      url: process.env.EXPO_PUBLIC_TASTIN_AI_URL,
       data: {
         //user_id: currentLoggedInUser.id,
         user_id: 1,

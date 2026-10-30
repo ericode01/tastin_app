@@ -29,6 +29,7 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
 
 # typescript
@@ -55,3 +56,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# Amplify environment info (AWS account ID, role ARNs). Recreate with `amplify pull`.
+amplify/team-provider-info.json
